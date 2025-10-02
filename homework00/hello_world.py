@@ -4,8 +4,5 @@ MESSAGE = "message"
 
 
 def text():
-    """ the function
-
-
-    """
+    """the function"""
     return MESSAGE
