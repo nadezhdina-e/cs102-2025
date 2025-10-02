@@ -1,2 +1,7 @@
+"""
+This file works on defining a text function
+"""
+MESSAGE = input()
 def text():
-    return message
+    """the function"""
+    return MESSAGE
