@@ -1,7 +1,5 @@
-"""
-This file works on defining a text function
-"""
-MESSAGE = input()
+"""This file works on defining a text function"""
+
 def text():
     """the function"""
-    return MESSAGE
+    return "message"
