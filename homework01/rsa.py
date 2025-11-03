@@ -34,3 +34,19 @@ def gcd(a: int, b: int) -> int:
     while b != 0:
         a, b = b, a % b
     return a
+
+
+def multiplicative_inverse(e: int, phi: int) -> int:
+    """
+    >>> multiplicative_inverse(7, 40)
+    23
+    """
+    original_phi = phi
+    y, x = 1, 0
+    while e > 1:
+        q = e // phi
+        e, phi = phi, e % phi
+        y, x = x, y - q * x
+    if y < 0:
+        y += original_phi
+    return y
