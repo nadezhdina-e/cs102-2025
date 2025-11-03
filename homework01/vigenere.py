@@ -1,3 +1,8 @@
+"""
+Модуль для шифра Виженера: функции для шифрования и расшифровки текста.
+"""
+
+
 def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     """
     Encrypts plaintext using a Vigenere cipher.
@@ -11,21 +16,22 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     """
     ciphertext = ""
     abc_length = 26
-    for i in range(len(plaintext)):
+    for i, char in enumerate(plaintext):
         j = i % len(keyword)
+        shift = 0
         if keyword[j].isalpha():
             if keyword[j].isupper():
-                shift = ord(keyword[j]) - ord('A')
+                shift = ord(keyword[j]) - ord("A")
             else:
-                shift = ord(keyword[j]) - ord('a')
-        if plaintext[i].isalpha():
-            if plaintext[i].isupper():
-                start = ord('A')
+                shift = ord(keyword[j]) - ord("a")
+        if char.isalpha():
+            if char.isupper():
+                start = ord("A")
             else:
-                start = ord('a')
-            ciphertext += chr((ord(plaintext[i]) - start + shift) % abc_length + start)
+                start = ord("a")
+            ciphertext += chr((ord(char) - start + shift) % abc_length + start)
         else:
-            ciphertext += plaintext[i]
+            ciphertext += char
     return ciphertext
 
 
@@ -42,20 +48,20 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     """
     plaintext = ""
     abc_length = 26
-    for i in range(len(ciphertext)):
+    for i, char in enumerate(ciphertext):
         j = i % len(keyword)
+        shift = 0
         if keyword[j].isalpha():
             if keyword[j].isupper():
-                shift = ord(keyword[j]) - ord('A')
+                shift = ord(keyword[j]) - ord("A")
             else:
-                shift = ord(keyword[j]) - ord('a')
-        if ciphertext[i].isalpha():
-            if ciphertext[i].isupper():
-                start = ord('A')
+                shift = ord(keyword[j]) - ord("a")
+        if char.isalpha():
+            if char.isupper():
+                start = ord("A")
             else:
-                start = ord('a')
-            plaintext += chr((ord(ciphertext[i]) - start - shift) % abc_length + start)
+                start = ord("a")
+            plaintext += chr((ord(char) - start + shift) % abc_length + start)
         else:
-            plaintext += ciphertext[i]
+            plaintext += char
     return plaintext
-
