@@ -14,12 +14,23 @@ def is_prime(n: int) -> bool:
     """
     if n <= 1:
         return False
-    elif n == 2:
+    if n == 2:
         return True
-    elif n % 2 == 0:  # для ускорения перебора в последнем уровне цикла
+    if n % 2 == 0:  # для ускорения перебора в последнем уровне цикла
         return False
-    else:
-        for i in range(3, int(n ** 0.5) + 1, 2):
-            if n % i == 0:
-                return False
+    for i in range(3, int(n**0.5) + 1, 2):
+        if n % i == 0:
+            return False
     return True
+
+
+def gcd(a: int, b: int) -> int:
+    """
+    >>> gcd(12, 15)
+    3
+    >>> gcd(3, 7)
+    1
+    """
+    while b != 0:
+        a, b = b, a % b
+    return a
