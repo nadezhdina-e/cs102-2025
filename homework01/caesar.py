@@ -17,9 +17,9 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     for char in plaintext:
         if char.isalpha():
             if char.isupper():
-                start = ord('A')
+                start = ord("A")
             else:
-                start = ord('a')
+                start = ord("a")
             ciphertext += chr((ord(char) - start + shift) % abc_length + start)
         else:
             ciphertext += char
@@ -39,17 +39,18 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     >>> decrypt_caesar("")
     ''
     """
-    plaintext = ''
+    plaintext = ""
     abc_length = 26
     for char in ciphertext:
         if char.isalpha():
             if char.isupper():
-                start = ord('A')
+                start = ord("A")
             else:
-                start = ord('a')
+                start = ord("a")
             plaintext += chr((ord(char) - start - shift) % abc_length + start)
         else:
             plaintext += char
     return plaintext
+
 
 print(decrypt_caesar("sbwkrq"))
