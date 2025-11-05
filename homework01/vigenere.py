@@ -1,8 +1,3 @@
-"""
-Модуль для шифра Виженера: функции для шифрования и расшифровки текста.
-"""
-
-
 def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     """
     Encrypts plaintext using a Vigenere cipher.
@@ -17,13 +12,13 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     ciphertext = ""
     abc_length = 26
     for i, char in enumerate(plaintext):
-        j = i % len(keyword)
+        element_defining_shift = i % len(keyword)
         shift = 0
-        if keyword[j].isalpha():
-            if keyword[j].isupper():
-                shift = ord(keyword[j]) - ord("A")
+        if keyword[element_defining_shift].isalpha():
+            if keyword[element_defining_shift].isupper():
+                shift = ord(keyword[element_defining_shift]) - ord("A")
             else:
-                shift = ord(keyword[j]) - ord("a")
+                shift = ord(keyword[element_defining_shift]) - ord("a")
         if char.isalpha():
             if char.isupper():
                 start = ord("A")
@@ -49,13 +44,13 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     plaintext = ""
     abc_length = 26
     for i, char in enumerate(ciphertext):
-        j = i % len(keyword)
+        element_defining_shift = i % len(keyword)
         shift = 0
-        if keyword[j].isalpha():
-            if keyword[j].isupper():
-                shift = ord(keyword[j]) - ord("A")
+        if keyword[element_defining_shift].isalpha():
+            if keyword[element_defining_shift].isupper():
+                shift = ord(keyword[element_defining_shift]) - ord("A")
             else:
-                shift = ord(keyword[j]) - ord("a")
+                shift = ord(keyword[element_defining_shift]) - ord("a")
         if char.isalpha():
             if char.isupper():
                 start = ord("A")

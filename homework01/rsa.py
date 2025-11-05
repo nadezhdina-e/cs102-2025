@@ -1,7 +1,3 @@
-"""
-Модуль для выполнение RSA шифрования: функции шифрования и расшифровки
-"""
-
 import random
 from typing import Tuple
 

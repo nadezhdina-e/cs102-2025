@@ -1,8 +1,3 @@
-"""
-Модуль для шифра  Цезаря: функции для шифрования и расшифровки текста.
-"""
-
-
 def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     """
     Encrypts plaintext using a Caesar cipher.
@@ -57,5 +52,5 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
             plaintext += char
     return plaintext
 
-
-print(decrypt_caesar("sbwkrq"))
+if __name__ == "__main__":
+    print(decrypt_caesar("sbwkrq"))
