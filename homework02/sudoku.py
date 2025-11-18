@@ -1,5 +1,7 @@
+import multiprocessing
 import pathlib
 import random
+import time
 import typing as tp
 
 T = tp.TypeVar("T")
@@ -205,12 +207,17 @@ def generate_sudoku(n: int) -> tp.List[tp.List[str]]:
     return result
 
 
+def run_solve(filename):
+    grid = read_sudoku(filename)
+    start = time.time()
+    solution = solve(grid)
+    end = time.time()
+    print(f"Solved {filename}")
+    print(f"Time: {end - start}")
+    print(solution)
+
+
 if __name__ == "__main__":
-    for fname in ["puzzle1.txt", "puzzle2.txt", "puzzle3.txt"]:
-        grid = read_sudoku(fname)
-        display(grid)
-        solution = solve(grid)
-        if not solution:
-            print(f"Puzzle {fname} can't be solved")
-        else:
-            display(solution)
+    for filename in ("puzzle1.txt", "puzzle2.txt", "puzzle3.txt"):
+        p = multiprocessing.Process(target=run_solve, args=(filename,))
+        p.start()
