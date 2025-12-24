@@ -82,17 +82,17 @@ def make_step(grid: List[List[Union[str, int]]], k: int) -> List[List[Union[str,
     :return:
     """
     rows, cols = len(grid), len(grid[0])
-    next_k = k + 1
     new_grid = deepcopy(grid)
     for x in range(rows):
         for y in range(cols):
-            if grid[x][y] != k:
+            if grid[x][y] != k - 1:
                 continue
             for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
                 nx, ny = x + dx, y + dy
                 if 0 <= nx < rows and 0 <= ny < cols and new_grid[nx][ny] == 0:
-                    new_grid[nx][ny] = next_k
-    return grid
+                    if new_grid[nx][ny] in (" ", 0):
+                        new_grid[nx][ny] = k
+    return new_grid
 
 
 def shortest_path(grid: List[List[Union[str, int]]], exit_coord: Tuple[int, int]) -> Optional[List[Tuple[int, int]]]:
