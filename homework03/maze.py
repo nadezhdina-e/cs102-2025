@@ -27,9 +27,7 @@ def remove_wall(
     return grid
 
 
-def bin_tree_maze(
-    rows: int = 15, cols: int = 15, random_exit: bool = True
-) -> List[List[Union[str, int]]]:
+def bin_tree_maze(rows: int = 15, cols: int = 15, random_exit: bool = True) -> List[List[Union[str, int]]]:
     """
 
     :param rows:
@@ -67,14 +65,8 @@ def bin_tree_maze(
     elif exit_choice == "2":
         if random_exit:
             x_in, x_out = randint(0, rows - 1), randint(0, rows - 1)
-            y_in = (
-                randint(0, cols - 1) if x_in in (0, rows - 1) else choice((0, cols - 1))
-            )
-            y_out = (
-                randint(0, cols - 1)
-                if x_out in (0, rows - 1)
-                else choice((0, cols - 1))
-            )
+            y_in = (randint(0, cols - 1) if x_in in (0, rows - 1) else choice((0, cols - 1)))
+            y_out = (randint(0, cols - 1) if x_out in (0, rows - 1) else choice((0, cols - 1)))
         else:
             x_in, y_in = 0, cols - 2
             x_out, y_out = rows - 1, 1
@@ -108,9 +100,7 @@ def get_exits(grid: List[List[Union[str, int]]]) -> List[Tuple[int, int]]:
     return exits
 
 
-def make_step(
-    grid: List[List[Union[str, int]]], x_neigh, y_neigh, k: int
-) -> List[List[Union[str, int]]]:
+def make_step(grid: List[List[Union[str, int]]], x_neigh, y_neigh, k: int) -> List[List[Union[str, int]]]:
     """
 
     :param grid:
@@ -186,12 +176,7 @@ def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) ->
     :return:
     """
     x, y = coord
-    if (
-        (x == 0 and y == 0)
-        or (x == 0 and y == 14)
-        or (x == 14 and y == 0)
-        or (x == 14 and y == 14)
-    ):
+    if (x == 0 and y == 0) or (x == 0 and y == 14) or (x == 14 and y == 0) or (x == 14 and y == 14):
         return True
     if x == 0 and grid[x + 1][y] != " ":
         return True
@@ -206,9 +191,7 @@ def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) ->
 
 def solve_maze(
     grid: List[List[Union[str, int]]],
-) -> Tuple[
-    List[List[Union[str, int]]], Optional[Union[Tuple[int, int], List[Tuple[int, int]]]]
-]:
+) -> Tuple[List[List[Union[str, int]]], Optional[Union[Tuple[int, int], List[Tuple[int, int]]]]]:
     """
 
     :param grid:
