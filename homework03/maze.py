@@ -26,13 +26,13 @@ def remove_wall(
     grid[wall_x][wall_y] = " "
     return grid
 
-
-def bin_tree_maze(rows: int = 15, cols: int = 15, random_exit: bool = True) -> List[List[Union[str, int]]]:
+def bin_tree_maze(rows: int = 15, cols: int = 15, random_exit: bool = True, auto_exit: bool = False) -> List[List[Union[str, int]]]:
     """
 
     :param rows:
     :param cols:
     :param random_exit:
+    :param auto_exit:
     :return:
     """
 
@@ -53,33 +53,36 @@ def bin_tree_maze(rows: int = 15, cols: int = 15, random_exit: bool = True) -> L
         if directions:
             next_cell = choice(directions)
             grid = remove_wall(grid, (x, y), next_cell)
-
-    print(
-        f"Выберите способ выбора точек входа в лабиринт и выхода из него:\n1 - По умолчанию\n2 - Рандомным путем"
-        f"\n3 - Введите свои значения "
-    )
-    exit_choice = str(input("Выведите число 1/2/3 "))
-    if exit_choice == "1":
+    if auto_exit:
         x_in, y_in = 0, cols - 2
         x_out, y_out = rows - 1, 1
-    elif exit_choice == "2":
-        if random_exit:
-            x_in, x_out = randint(0, rows - 1), randint(0, rows - 1)
-            y_in = randint(0, cols - 1) if x_in in (0, rows - 1) else choice((0, cols - 1))
-            y_out = randint(0, cols - 1) if x_out in (0, rows - 1) else choice((0, cols - 1))
-        else:
-            x_in, y_in = 0, cols - 2
-            x_out, y_out = rows - 1, 1
     else:
         print(
-            f"Введите точку входа. Она может располагаться только на сторонах лабиринта, поэтому одна из координат "
-            f"должна равняться 14 или 0. Введите 2 числа через пробел "
+            f"Выберите способ выбора точек входа в лабиринт и выхода из него:\n1 - По умолчанию\n2 - Рандомным путем"
+            f"\n3 - Введите свои значения "
         )
-        dots = input().split(" ")
-        x_in, y_in = int(dots[0]), int(dots[1])
-        print(f"Введите точку выхода. Условия аналогичны ")
-        dots = input().split(" ")
-        x_out, y_out = int(dots[0]), int(dots[1])
+        exit_choice = str(input("Выведите число 1/2/3 "))
+        if exit_choice == "1":
+            x_in, y_in = 0, cols - 2
+            x_out, y_out = rows - 1, 1
+        elif exit_choice == "2":
+            if random_exit:
+                x_in, x_out = randint(0, rows - 1), randint(0, rows - 1)
+                y_in = randint(0, cols - 1) if x_in in (0, rows - 1) else choice((0, cols - 1))
+                y_out = randint(0, cols - 1) if x_out in (0, rows - 1) else choice((0, cols - 1))
+            else:
+                x_in, y_in = 0, cols - 2
+                x_out, y_out = rows - 1, 1
+        else:
+            print(
+                f"Введите точку входа. Она может располагаться только на сторонах лабиринта, поэтому одна из координат "
+                f"должна равняться 14 или 0. Введите 2 числа через пробел "
+            )
+            dots = input().split(" ")
+            x_in, y_in = int(dots[0]), int(dots[1])
+            print(f"Введите точку выхода. Условия аналогичны ")
+            dots = input().split(" ")
+            x_out, y_out = int(dots[0]), int(dots[1])
     grid[x_in][y_in], grid[x_out][y_out] = "X", "X"
 
     return grid
