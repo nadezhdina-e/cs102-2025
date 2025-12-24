@@ -137,14 +137,14 @@ def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) ->
         or (x == rows - 1 and y == cols - 1)
     ):
         return True
-    if x == 0 and grid[x + 1][y] != " ":
-        return True
-    if x == 14 and grid[x - 1][y] != " ":
-        return True
-    if y == 0 and grid[x][y + 1] != " ":
-        return True
-    if y == 14 and grid[x][y - 1] != " ":
-        return True
+    if x == 0:
+        return grid[1][y] == "■"
+    if x == rows - 1:
+        return grid[rows - 2][y] == "■"
+    if y == 0:
+        return grid[x][1] == "■"
+    if y == cols - 1:
+        return grid[x][cols - 2] == "■"
     return False
 
 
@@ -168,26 +168,12 @@ def solve_maze(
     k = 1
     while maze[end[0]][end[1]] == 0:
         k += 1
-        found_cell = False
-        for i in range(len(maze)):
-            for j in range(len(maze[0])):
-                if maze[i][j] == k - 1:
-                    found_cell = True
-                    maze = make_step(maze, k)
-                    maze = make_step(maze, k)
-                    maze = make_step(maze, k)
-                    maze = make_step(maze, k)
-        if not found_cell:
+        maze = make_step(maze, k)
+        if not any(cell == k-1 for row in maze for cell in row):
             return maze, None
     path = shortest_path(maze, end)
     if not path:
         return maze, None
-    path_length = len(path) - 1
-    expected_length = int(maze[end[0]][end[1]]) - 1
-    if path_length != expected_length:
-        for x, y in path[1:-1]:
-            maze[x][y] = " "
-        return solve_maze(maze)
     return maze, path
 
 
