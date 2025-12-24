@@ -90,7 +90,7 @@ def make_step(grid: List[List[Union[str, int]]], k: int) -> List[List[Union[str,
             for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
                 nx, ny = x + dx, y + dy
                 if 0 <= nx < rows and 0 <= ny < cols:
-                    if new_grid[nx][ny] in (" ", 0):
+                    if new_grid[nx][ny] == 0:
                         new_grid[nx][ny] = k
     return new_grid
 
