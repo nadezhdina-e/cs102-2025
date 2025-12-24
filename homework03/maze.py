@@ -1,7 +1,8 @@
+from collections import deque
 from copy import deepcopy
 from random import choice, randint
-from typing import List, Optional, Tuple, Union, Deque
-from collections import deque
+from typing import Deque, List, Optional, Tuple, Union
+
 import pandas as pd
 
 
