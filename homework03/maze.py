@@ -169,7 +169,7 @@ def solve_maze(
     while maze[end[0]][end[1]] == 0:
         k += 1
         maze = make_step(maze, k)
-        if not any(cell == k-1 for row in maze for cell in row):
+        if not any(cell == k - 1 for row in maze for cell in row):
             return maze, None
     path = shortest_path(maze, end)
     if not path:
