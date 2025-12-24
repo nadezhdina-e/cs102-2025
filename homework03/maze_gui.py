@@ -20,13 +20,13 @@ def draw_maze(grid: List[List[str]], size: int = 10):
             elif cell == "■":
                 color = 'black'
             elif cell == "X":
-                color = "red"
+                color = "blue"
             draw_cell(y, x, color, size)
 
 
 def show_solution():
     maze, path = solve_maze(GRID)
-    maze = add_path_to_grid(GRID, path)
+    maze = add_path_to_grid(maze, path)
     if path:
         draw_maze(maze, CELL_SIZE)
     else:
