@@ -45,18 +45,19 @@ class GameOfLife:
 
         # Создание списка клеток
         # PUT YOUR CODE HERE
-
+        self.grid_matrix = self.create_grid(randomize = True)
         running = True
         while running:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     running = False
-            self.draw_lines()
 
             # Отрисовка списка клеток
             # Выполнение одного шага игры (обновление состояния ячеек)
-            # PUT YOUR CODE HERE
 
+            self.draw_grid()
+            self.draw_lines()
+            self.grid_matrix = self.get_next_generation()
             pygame.display.flip()
             clock.tick(self.speed)
         pygame.quit()
@@ -79,17 +80,17 @@ class GameOfLife:
         out : Grid
             Матрица клеток размером `cell_height` х `cell_width`.
         """
-        grid_matrix = []
-        for i in range(self.height // self.cell_height):
+        self.grid_matrix = []
+        for i in range(self.cell_height):
             row = []
-            for j in range(self.width // self.cell_width):
+            for j in range(self.cell_width):
                 if randomize is True:
                     cell_value = random.randint(0, 1)
                 else:
                     cell_value = 0
                 row.append(cell_value)
-            grid_matrix.append(row)
-        return grid_matrix
+            self.grid_matrix.append(row)
+        return self.grid_matrix
 
 
     def draw_grid(self) -> None:
@@ -146,7 +147,6 @@ class GameOfLife:
         out : Grid
             Новое поколение клеток.
         """
-        global live_neighbours, current_cell, grid_matrix
         new_grid = self.create_grid(randomize=False)
 
         for i in range(self.cell_height):
@@ -154,15 +154,27 @@ class GameOfLife:
                 current_cell = self.grid_matrix[i][j]
                 neighbours = self.get_neighbours((i, j))
                 live_neighbours = sum(neighbours)
-        if current_cell == 1:  # Клетка жива
-            if live_neighbours < 2 or live_neighbours > 3:
-                new_grid[i][j] = 0  # Умирает
-            else:
-                new_grid[i][j] = 1  # Выживает
-        else:  # Клетка мертва
-            if live_neighbours == 3:
-                new_grid[i][j] = 1  # Оживает
-            else:
-                new_grid[i][j] = 0  # Остается мертвой
+                if current_cell == 1:  # Клетка жива
+                    if live_neighbours < 2 or live_neighbours > 3:
+                        new_grid[i][j] = 0  # Умирает
+                    else:
+                        new_grid[i][j] = 1  # Выживает
+                else:  # Клетка мертва
+                    if live_neighbours == 3:
+                        new_grid[i][j] = 1  # Оживает
+                    else:
+                        new_grid[i][j] = 0  # Остается мертвой
 
         return new_grid
+
+
+if __name__ == "__main__":
+    from pprint import pprint as pp
+    game = GameOfLife(320, 240, 40)
+    print("Randomized grid (6x8):")
+    random.seed(42)
+    grid = game.create_grid(randomize=True)
+    pp(grid)
+    print("\nStarting graphical interface...")
+    game = GameOfLife(640, 480, 10, 1)  # Другие параметры для GUI
+    game.run()
