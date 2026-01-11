@@ -101,6 +101,7 @@ def make_step(grid: List[List[Union[str, int]]], k: int) -> List[List[Union[str,
                     grid[i][j + 1] = k + 1
     return grid
 
+
 def shortest_path(grid: List[List[Union[str, int]]], exit_coord: Tuple[int, int]) -> Optional[List[Tuple[int, int]]]:
     """
     Находит кратчайший путь от exit_coord к клетке со значением 1.
