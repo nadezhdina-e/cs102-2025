@@ -29,15 +29,13 @@ class GameOfLife:
         self.generations = 1
 
     def create_grid(self, randomize: bool = False) -> Grid:
-        rows_count = self.rows
-        cols_count = self.cols
         result = []
 
-        for i in range(rows_count):
+        for i in range(self.rows):
             if randomize:
-                line = [random.randint(0, 1) for _ in range(cols_count)]
+                line = [random.randint(0, 1) for _ in range(self.cols)]
             else:
-                line = [0 for _ in range(cols_count)]
+                line = [0 for _ in range(self.cols)]
             result.append(line)
 
         return result
@@ -82,7 +80,7 @@ class GameOfLife:
 
     def step(self) -> None:
         """
-        Выполнить один шаг игры.
+        Шаг игры.
         """
         self.prev_generation = [row[:] for row in self.curr_generation]
         self.curr_generation = self.get_next_generation()
@@ -91,7 +89,7 @@ class GameOfLife:
     @property
     def is_max_generations_exceeded(self) -> bool:
         """
-        Не превысило ли текущее число поколений максимально допустимое.
+        Проверка числа поколений
         """
         if self.max_generations is None:
             return False
@@ -101,7 +99,7 @@ class GameOfLife:
     @property
     def is_changing(self) -> bool:
         """
-        Изменилось ли состояние клеток с предыдущего шага.
+        Изменилось ли состояние клеток.
         """
         if self.curr_generation != self.prev_generation:
             return True
@@ -111,7 +109,7 @@ class GameOfLife:
     @staticmethod
     def from_file(filename: pathlib.Path) -> "GameOfLife":
         """
-        Прочитать состояние клеток из указанного файла.
+        Прочитать состояние клеток из файла.
         """
         with open(filename, "r") as f:
             lines = f.readlines()
