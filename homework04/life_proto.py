@@ -1,6 +1,5 @@
 import random
 import typing as tp
-from typing import Optional
 
 import pygame
 from pygame.locals import *
@@ -11,8 +10,21 @@ Grid = tp.List[Cells]
 
 
 class GameOfLife:
+    """
+    Игра "Жизнь"
+    """
     def __init__(self, width: int = 640, height: int = 480, cell_size: int = 10, speed: int = 10) -> None:
-        self.grid: Optional[Grid] = None
+        self.width = width
+        self.height = height
+        self.cell_size = cell_size
+        self.screen_size = width, height
+        self.screen = pygame.display.set_mode(self.screen_size)
+        self.cell_width = self.width // self.cell_size
+        self.cell_height = self.height // self.cell_size
+        self.speed = speed
+
+        # Инициализируем grid сразу(?) чтобы не ругался mypy
+        self.grid: Grid = self.create_grid(randomize=False)
         self.width = width
         self.height = height
         self.cell_size = cell_size
@@ -80,7 +92,7 @@ class GameOfLife:
             Матрица клеток размером `cell_height` х `cell_width`.
         """
         grid_in_creation = []
-        for i in range(self.cell_height):
+        for _ in range(self.cell_height):
             row = []
             for j in range(self.cell_width):
                 if randomize is True:
