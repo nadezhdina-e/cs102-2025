@@ -1,5 +1,6 @@
 import random
 import typing as tp
+
 import pygame
 from pygame.locals import *
 
