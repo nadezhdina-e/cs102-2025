@@ -95,7 +95,6 @@ class GameOfLife:
             return False
         return True
 
-
     @property
     def is_changing(self) -> bool:
         """
@@ -104,7 +103,6 @@ class GameOfLife:
         if self.curr_generation != self.prev_generation:
             return True
         return False
-
 
     @staticmethod
     def from_file(filename: pathlib.Path) -> "GameOfLife":

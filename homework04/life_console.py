@@ -9,7 +9,7 @@ class Console(UI):
         super().__init__(life)
 
     def draw_borders(self, screen) -> None:
-        """ Отобразить рамку. """
+        """Отобразить рамку."""
         height = self.life.rows
         width = self.life.cols
         max_y, max_x = screen.getmaxyx()
@@ -30,7 +30,7 @@ class Console(UI):
             screen.addch(line, width + 1, "!")
 
     def draw_grid(self, screen) -> None:
-        """ Отобразить состояние клеток. """
+        """Отобразить состояние клеток."""
         field = self.life.curr_generation
 
         for row_num in range(self.life.rows):

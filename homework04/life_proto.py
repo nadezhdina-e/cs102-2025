@@ -1,5 +1,6 @@
 import random
 import typing as tp
+from typing import Optional
 
 import pygame
 from pygame.locals import *
@@ -10,10 +11,8 @@ Grid = tp.List[Cells]
 
 
 class GameOfLife:
-    def __init__(
-        self, width: int = 640, height: int = 480, cell_size: int = 10, speed: int = 10
-    ) -> None:
-        self.grid = None
+    def __init__(self, width: int = 640, height: int = 480, cell_size: int = 10, speed: int = 10) -> None:
+        self.grid: Optional[Grid] = None
         self.width = width
         self.height = height
         self.cell_size = cell_size
@@ -31,21 +30,21 @@ class GameOfLife:
         self.speed = speed
 
     def draw_lines(self) -> None:
-        """ Отрисовать сетку """
+        """Отрисовать сетку"""
         for x in range(0, self.width, self.cell_size):
             pygame.draw.line(self.screen, pygame.Color("black"), (x, 0), (x, self.height))
         for y in range(0, self.height, self.cell_size):
             pygame.draw.line(self.screen, pygame.Color("black"), (0, y), (self.width, y))
 
     def run(self) -> None:
-        """ Запустить игру """
+        """Запустить игру"""
         pygame.init()
         clock = pygame.time.Clock()
         pygame.display.set_caption("Game of Life")
         self.screen.fill(pygame.Color("white"))
 
         # Создание списка клеток
-        self.grid = self.create_grid(randomize = True)
+        self.grid = self.create_grid(randomize=True)
         running = True
         while running:
             for event in pygame.event.get():
@@ -80,7 +79,7 @@ class GameOfLife:
         out : Grid
             Матрица клеток размером `cell_height` х `cell_width`.
         """
-        grid = []
+        grid_in_creation = []
         for i in range(self.cell_height):
             row = []
             for j in range(self.cell_width):
@@ -89,8 +88,8 @@ class GameOfLife:
                 else:
                     cell_value = 0
                 row.append(cell_value)
-            grid.append(row)
-        return grid
+            grid_in_creation.append(row)
+        return grid_in_creation
 
 
     def draw_grid(self) -> None:
