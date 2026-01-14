@@ -91,7 +91,6 @@ class GameOfLife:
             grid_in_creation.append(row)
         return grid_in_creation
 
-
     def draw_grid(self) -> None:
         """
         Отрисовка списка клеток с закрашиванием их в соответствующе цвета.
@@ -169,6 +168,7 @@ class GameOfLife:
 
 if __name__ == "__main__":
     from pprint import pprint as pp
+
     game = GameOfLife(320, 240, 40)
     print("Randomized grid (6x8):")
     random.seed(42)
