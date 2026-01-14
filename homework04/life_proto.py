@@ -12,7 +12,7 @@ class GameOfLife:
     def __init__(
         self, width: int = 640, height: int = 480, cell_size: int = 10, speed: int = 10
     ) -> None:
-        self.grid_matrix = None
+        self.grid = None
         self.width = width
         self.height = height
         self.cell_size = cell_size
@@ -44,8 +44,7 @@ class GameOfLife:
         self.screen.fill(pygame.Color("white"))
 
         # Создание списка клеток
-        # PUT YOUR CODE HERE
-        self.grid_matrix = self.create_grid(randomize = True)
+        self.grid = self.create_grid(randomize = True)
         running = True
         while running:
             for event in pygame.event.get():
@@ -57,7 +56,7 @@ class GameOfLife:
 
             self.draw_grid()
             self.draw_lines()
-            self.grid_matrix = self.get_next_generation()
+            self.grid = self.get_next_generation()
             pygame.display.flip()
             clock.tick(self.speed)
         pygame.quit()
@@ -80,7 +79,7 @@ class GameOfLife:
         out : Grid
             Матрица клеток размером `cell_height` х `cell_width`.
         """
-        self.grid_matrix = []
+        grid = []
         for i in range(self.cell_height):
             row = []
             for j in range(self.cell_width):
@@ -89,8 +88,8 @@ class GameOfLife:
                 else:
                     cell_value = 0
                 row.append(cell_value)
-            self.grid_matrix.append(row)
-        return self.grid_matrix
+            grid.append(row)
+        return grid
 
 
     def draw_grid(self) -> None:
@@ -100,7 +99,7 @@ class GameOfLife:
         for i in range(self.cell_height):
             for j in range(self.cell_width):
                 cell_rect = pygame.Rect(j * self.cell_size, i * self.cell_size, self.cell_size, self.cell_size)
-                if self.grid_matrix[i][j] == 1:
+                if self.grid[i][j] == 1:
                     pygame.draw.rect(self.screen, pygame.Color("green"), cell_rect)
                 else:
                     pygame.draw.rect(self.screen, pygame.Color("white"), cell_rect)
@@ -134,7 +133,7 @@ class GameOfLife:
                 new_row = row + i
                 new_col = col + j
                 if 0 <= new_row < self.cell_height and 0 <= new_col < self.cell_width:
-                    neighbours.append(self.grid_matrix[new_row][new_col])
+                    neighbours.append(self.grid[new_row][new_col])
 
         return neighbours
 
@@ -151,7 +150,7 @@ class GameOfLife:
 
         for i in range(self.cell_height):
             for j in range(self.cell_width):
-                current_cell = self.grid_matrix[i][j]
+                current_cell = self.grid[i][j]
                 neighbours = self.get_neighbours((i, j))
                 live_neighbours = sum(neighbours)
                 if current_cell == 1:  # Клетка жива
