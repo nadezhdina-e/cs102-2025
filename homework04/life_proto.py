@@ -13,6 +13,7 @@ class GameOfLife:
     """
     Игра "Жизнь"
     """
+
     def __init__(self, width: int = 640, height: int = 480, cell_size: int = 10, speed: int = 10) -> None:
         self.width = width
         self.height = height
